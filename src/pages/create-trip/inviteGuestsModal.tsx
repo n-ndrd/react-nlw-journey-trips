@@ -1,4 +1,4 @@
-import { AtSign, Plus, X } from "lucide-react";
+import { AtSign, Plus } from "lucide-react";
 import type { FormEvent } from "react";
 import { Button } from "../../components/Button";
 import { ButtonClose } from "../../components/ButtonClose";
@@ -37,12 +37,7 @@ export function InviteGuestsModal({
 								className="py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-8"
 							>
 								<span className="text-zinc-300">{email}</span>
-								<button
-									type="button"
-									onClick={() => removeEmailFromInvites(email)}
-								>
-									<X className="size-4 text-zinc-400" />
-								</button>
+								<ButtonClose onClick={() => removeEmailFromInvites(email)} />
 							</div>
 						);
 					})}

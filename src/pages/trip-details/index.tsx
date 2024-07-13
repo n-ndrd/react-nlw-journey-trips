@@ -1,21 +1,52 @@
-import { Calendar, CircleCheck, MapPin, Plus, Settings2 } from "lucide-react";
-import { useState } from "react";
+import { CircleCheck, Plus } from "lucide-react";
+import { type FormEvent, useState } from "react";
+import { Button } from "../../components/Button";
+import { AddImportantLinkModal } from "./addImportantLinkModal";
+import { ConfirmParticipationModal } from "./confirmParticipationModal";
 import { CreateActivityModal } from "./createActivityModal";
 import { Guests } from "./guests";
 import { HeaderTrip } from "./headerTrip";
 import { ImportantsLinks } from "./importantsLinks";
-import { Button } from "../../components/Button";
 
 export function TripDetailsPage() {
 	const [isCreateActivityModalIsOpen, setIsCreateActivityModalIsOpen] =
 		useState(false);
 
-	function openCreateActivityModalIsOpen() {
+	const [isAddImportantLinkModalIsOpen, setIsAddImportantModalLinkIsOpen] =
+		useState(false);
+	const [
+		isConfirmParticipationModalIsOpen,
+		setIsConfirmParticipationModalIsOpen,
+	] = useState(false);
+
+	function openAddImportantLinkModal() {
+		setIsAddImportantModalLinkIsOpen(true);
+	}
+
+	function closeAddImportantLinkModal() {
+		setIsAddImportantModalLinkIsOpen(false);
+	}
+
+	function openCreateActivityModal() {
 		setIsCreateActivityModalIsOpen(true);
 	}
 
-	function closeCreateActivityModalIsOpen() {
+	function closeCreateActivityModal() {
 		setIsCreateActivityModalIsOpen(false);
+	}
+
+	function openConfirmParticipationModal() {
+		setIsConfirmParticipationModalIsOpen(true);
+	}
+
+	function closeConfirmParticipationModal() {
+		setIsConfirmParticipationModalIsOpen(false);
+	}
+
+	function confirmParticipation(event: FormEvent<HTMLFormElement>) {
+		event.preventDefault();
+
+		closeConfirmParticipationModal();
 	}
 
 	return (
@@ -27,13 +58,13 @@ export function TripDetailsPage() {
 					<div className="flex items-center justify-between">
 						<h2 className="text-3xl font-semibold">Atividades</h2>
 
-						<Button 
-							variant="primary" 
+						<Button
+							variant="primary"
 							type="button"
-							onClick={openCreateActivityModalIsOpen}
+							onClick={openCreateActivityModal}
 						>
-								Cadastrar atividade
-								<Plus className="size-5" />
+							Cadastrar atividade
+							<Plus className="size-5" />
 						</Button>
 					</div>
 
@@ -77,15 +108,32 @@ export function TripDetailsPage() {
 				</div>
 
 				<div className="w-80 space-y-6">
-					<ImportantsLinks />
+					<ImportantsLinks
+						openAddImportantLinkModal={openAddImportantLinkModal}
+					/>
 					<div className="w-full h-px bg-zinc-800"> </div>
-					<Guests />
+					<Guests
+						openConfirmParticipationModal={openConfirmParticipationModal}
+					/>
 				</div>
 			</main>
 
 			{isCreateActivityModalIsOpen && (
 				<CreateActivityModal
-					closeCreateActivityModalIsOpen={closeCreateActivityModalIsOpen}
+					closeCreateActivityModalIsOpen={closeCreateActivityModal}
+				/>
+			)}
+
+			{isAddImportantLinkModalIsOpen && (
+				<AddImportantLinkModal
+					closeAddImportantLinkModal={closeAddImportantLinkModal}
+				/>
+			)}
+
+			{isConfirmParticipationModalIsOpen && (
+				<ConfirmParticipationModal
+					closeConfirmParticipationModal={closeConfirmParticipationModal}
+					confirmParticipation={confirmParticipation}
 				/>
 			)}
 		</div>

@@ -1,7 +1,11 @@
 import { CircleCheck, CircleDashed, UserCog } from "lucide-react";
 import { Button } from "../../components/Button";
 
-export function Guests() {
+type GuestsProps = {
+	openConfirmParticipationModal: () => void;
+};
+
+export function Guests({ openConfirmParticipationModal }: GuestsProps) {
 	return (
 		<div>
 			<div className="space-y-6">
@@ -34,9 +38,10 @@ export function Guests() {
 				</div>
 
 				<Button
+					type="button"
 					variant="secundary"
 					size="full"
-					type="button"
+					onClick={openConfirmParticipationModal}
 				>
 					<UserCog className="size-5" />
 					Gerenciar convidados

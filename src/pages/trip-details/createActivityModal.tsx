@@ -1,4 +1,4 @@
-import { Calendar, Clock, Tag, X } from "lucide-react";
+import { Calendar, Clock, Tag } from "lucide-react";
 import { Button } from "../../components/Button";
 import { ButtonClose } from "../../components/ButtonClose";
 
